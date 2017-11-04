@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+<TextView
+    style="@style/TextAppearance.AppCompat.Large"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical|center_horizontal|center"
+    android:text="Register"
+    android:textColor="#0bf" />
+<EditText android:id="@+id/fname" android:hint="First Name" android:layout_width="fill_parent"
+    android:layout_height="wrap_content"/>
+<EditText android:id="@+id/lname" android:hint="Last Name" android:layout_width="fill_parent"
+    android:layout_height="wrap_content"/>
+<EditText android:id="@+id/email" android:hint="Email" android:layout_width="fill_parent"
+    android:layout_height="wrap_content"/>
+<EditText android:id="@+id/password" android:hint="Password" android:layout_width="fill_parent"
+    android:layout_height="wrap_content"/>
+<Button android:id="@+id/register" android:layout_width="wrap_content" android:text="Submit" android:layout_gravity="center_vertical|center_horizontal"
+    android:layout_height="wrap_content"/>
+</LinearLayout>

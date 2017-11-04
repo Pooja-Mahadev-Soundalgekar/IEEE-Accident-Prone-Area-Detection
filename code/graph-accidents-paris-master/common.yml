@@ -1,0 +1,9 @@
+version: '2'
+services:
+  data:
+      build: elastic
+      volumes:
+          - ./data:/data
+          - ./conf/elasticsearch/config:/config
+          - ./logs:/logs
+          - ./backups:/backups

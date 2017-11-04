@@ -1,0 +1,87 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <LinearLayout 
+        android:background="@android:color/white"
+        android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+
+      
+            <TextView
+                style="@android:style/TextAppearance.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal|center"
+                android:text="Filter"
+                android:textColor="#00bbff" />
+
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_vertical|center_horizontal|center"
+             android:src="@drawable/logo" />
+
+		<LinearLayout
+		    android:id="@+id/ll"
+		     android:layout_width="match_parent"  android:orientation="vertical"
+            android:layout_height="wrap_content">
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="State"/>
+		    <Spinner
+		        android:id="@+id/state"
+		        android:hint="State"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" />
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="County"/>
+		    
+		    <Spinner
+		        android:id="@+id/county"
+		        android:hint="County"
+		        android:enabled="false"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" />
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="City"/>
+		    
+		    <Spinner
+		        android:id="@+id/city"
+		        android:hint="City"
+		         android:enabled="false"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" />
+<LinearLayout
+     android:layout_width="match_parent"
+     android:gravity="center"
+     android:layout_height="wrap_content" >
+ <Spinner
+         android:id="@+id/year"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:entries="@array/year"
+         android:layout_weight="1" />
+     <Spinner
+         android:id="@+id/month"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:entries="@array/month"
+         android:layout_weight="1" />
+
+    
+
+ </LinearLayout>
+			<Button
+			    android:id="@+id/submit"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Submit"
+			    android:layout_gravity="center_vertical|center_horizontal" />
+
+		</LinearLayout>
+</LinearLayout>
+
+ 
+
+       
+  
+
+</ScrollView>

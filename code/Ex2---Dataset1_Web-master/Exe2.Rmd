@@ -1,0 +1,126 @@
+---
+title: "Road Safety - Accidents in UK, 2014"
+output: html_document
+---
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width = 200)
+```
+___
+#### *Authors:* Ronit Yoari & Orel Swisa  
+#### *Date*: April 13, 2016  
+#### *The Dataset [Source](https://data.gov.uk/dataset/road-accidents-safety-data)*   
+___
+### *Data Description*
+- This file provide detailed road safety data about the circumstances of personal injury road accidents from 2014, UK, the types (including Make and Model) of vehicles involved and the consequential casualties.  
+- The statistics relate only to personal injury accidents on public roads that are reported to the police, and subsequently recorded, using the STATS19 accident reporting form.  
+- The relevant properties in the dataset:  
+
+Properties              | Description
+----------------------- | ------------------------------------------
+*Accident_Index*        | **ID** number of an accident
+*Longitude*             | The **longitude** of the place where the accident happened
+*Latitude*              | The **latitude** of the place where the accident happened
+*Number_of_Vehicles*    | The number of **vehicles** in the accident
+*Number_of_Casualties*  | The number of **casualties** in the accident
+*Date*                  | The **date** on which the accident occurred
+*Day_of_Week*           | The **day** of week on which the accident occurred
+*Time*                  | The **time** on which the accident occurred
+
+___
+### *Data Example - Reading first data records*
+```{r include= TRUE, echo=FALSE}
+library("downloader")
+folder<-".\\data\\DfTRoadSafety_Accidents_2014.csv"
+if(!file.exists(folder)){
+  # Download a csv file from the Internet:
+  fileURL <- "https://dl.dropboxusercontent.com/u/73991112/DfTRoadSafety_Accidents_2014.csv"
+  download.file(fileURL, destfile = folder)
+  # Always record the date
+  dateDownloaded <- date()
+  dateDownloaded
+}
+# Read from local drive
+accidentsData <- read.csv(folder, sep = ",",header = T, row.names=NULL)[,c(1,4:5,8:12)]
+# Reading the first records :
+head(accidentsData)
+```
+___
+### *Summary*
+- Statistics on the number of **vehicles** and **casualties** that were involved in an accident:
+```{r echo=FALSE}
+summary(accidentsData[,c(4:5)])
+```
+
+___
+### *Analysis of the Data by Various Criteria*
+___
+#### *The graph below shows the **distribution** of accidents in the **UK***
+```{r include= TRUE, echo=FALSE, warning=FALSE}
+library(MASS)
+library(RgoogleMaps)
+# Keep the lon and lat data
+rawdata <- data.frame(as.numeric(accidentsData$Longitude), as.numeric(accidentsData$Latitude))
+names(rawdata) <- c("lon", "lat")
+
+# Mapping via RgoogleMaps
+# Find map center and get map
+center <- rev(sapply(rawdata, mean))
+map <- GetMap(center=center, zoom=7)
+
+# Translate original data
+coords <- LatLon2XY.centered(map, rawdata$lat, rawdata$lon, 7)
+coords <- data.frame(coords)
+
+# Plot
+PlotOnStaticMap(map)
+points(coords$newX, coords$newY, pch=16, cex=0.3, col=heat.colors(12,0.1))
+```
+  
+As can be seen from the graph, the majority of road accidents occur in **urban areas**.  
+This phenomenon is a logical result because:  
+- The **number of vehicles** in urban areas is higher than in non-urban areas.  
+- In urban areas there is **activity around the clock**, as opposed to areas that are not urban.  
+
+___  
+#### *The graph below shows the **distribution** of road accidents during **the week***
+```{r include= TRUE, echo=FALSE, warning=FALSE}
+  # Pie Chart from data frame with Appended Sample Sizes
+mytable <- table(accidentsData$Day_of_Week)
+days<-c('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday')
+bls <- paste(days, "\n",mytable , sep="")
+pie(mytable, labels =bls, 	main="Pie Chart of accidents during\ndays of the week",col=terrain.colors(7))
+```
+  
+As can be seen from the graph:  
+- The **majority** of road accidents occur in **Friday**.    
+- The **minority** of road accidents occur in **Sunday**.    
+This phenomenon is a logical result because:  
+- Most people in UK drive on **Friday** to make arrangements ahead of the weekend, what creating congestion on the roads, which leads to a **high number of accidents** on this day.   
+- Most people in the UK do not drive on **Sunday** - it is a **day off** - so there are few cars on the road which leads a **small number of road accidents** on this day.
+  
+___ 
+#### *The graph below shows the **distribution** of accidents in the during **the day***
+```{r include= TRUE, echo=FALSE, warning=FALSE}
+  hist(as.numeric(substr(accidentsData$Time,1,2)),main="Histogram for Number of Accidents\nVS\nHour", xlab="Hour",col=terrain.colors(24), ylab="Number of Accidents",las = 1)
+```
+  
+As can be seen from the graph:  
+- The **majority** of road accidents occur in **17:00-18:00**.    
+- The **minority** of road accidents occur in **03:00:04:00**.    
+This phenomenon is a logical result because:  
+- Most people in UK drive back home in **17:00-18:00**, what creating congestion on the roads, which leads to a **high number of accidents** on this day.   
+- Most people in the UK do not drive in **03:00:04:00**, so there are few cars on the road which leads a **small number of road accidents** on this day.
+  
+___
+### *Summary, Conclusions and Recommendations for Further Research.*
+In conclusion, this report shows that road accidents have common attributes, such as **day, time and location** - that can learn from and draw on some of the reasons why they happen.  
+  
+Our recommendation for further research, is to cross-check between the common attributes that presented in this report and deduce information that could indicate **when and where** there is a likelihood that a road accident will happend.  
+After analyzing this information, it will be possible to increase the presence of police forces in order to reduce the quantity of traffic accidents and thereby save lives.
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+
+age young middle old
+young +1
+middle 0
+old +1
+gender w, m
++1, 0
+Expertise.......1...5 
+1 1 ok
+1 2 lr
+2 3 r
+1 4,5 vr
+2 1 ok
+2 2,3l r
+2 4 r
+2 5 vr
+3 1,2ok
+3 3,4 l r
+3 5 v r
+4 1,2,3 ok
+4 4 l r
+4 5 r
+5 1,2,3 ok
+5 4,5 lr
+location.......will give 1-5
+
+

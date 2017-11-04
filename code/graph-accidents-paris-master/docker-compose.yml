@@ -1,0 +1,38 @@
+#main ES cluster
+version: '2'
+services:
+  
+  elasticsearch:
+    container_name: elasticsearch
+    extends:
+      file: common.yml
+      service: data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    command: ./elasticsearch  --network.host _non_loopback_
+
+  kibana:
+    build: kibana
+    volumes:
+      - ./data:/data
+      - ./conf/kibana/config:/config
+      - ./logs:/logs
+    ports:
+      - 5601:5601
+    command: sh -c "sleep 30;/opt/kibana/bin/kibana --config /config/kibana.yml"
+
+  processor:
+    build: logstash
+    volumes:
+      - ./conf/logstash/processor:/processor
+      - ./logs:/logs
+    command: sh -c "sleep 45;logstash -f /processor/processor.conf"
+
+  filebeat:
+    build: filebeat
+    volumes:
+      - ./conf:/config
+      - ./logs:/logs
+      - ./source:/source
+    command: sh -c "sleep 40;filebeat -e -c /config/filebeat/filebeat.yml"
